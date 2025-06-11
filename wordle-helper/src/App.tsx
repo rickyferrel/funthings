@@ -77,12 +77,24 @@ async function getHint(word: string): Promise<string> {
   return `Try a word like: ${word.toUpperCase()}`;
 }
 
+// Add confetti component
+function Confetti() {
+  return (
+    <div className="confetti">
+      {[...Array(80)].map((_, i) => (
+        <div key={i} className="confetti-piece" />
+      ))}
+    </div>
+  );
+}
+
 function App() {
   const [guesses, setGuesses] = useState<{ word: string[]; colors: number[] }[]>([])
   const [currentGuess, setCurrentGuess] = useState<string[]>(['', '', '', '', ''])
   const [currentColors, setCurrentColors] = useState<number[]>([0, 0, 0, 0, 0])
   const inputRefs = [useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null)]
   const [hint, setHint] = useState<string>('')
+  const [showConfetti, setShowConfetti] = useState(false);
 
   // Handle typing in a box
   const handleBoxInput = (e: React.ChangeEvent<HTMLInputElement>, idx: number) => {
@@ -120,6 +132,11 @@ function App() {
     e.preventDefault()
     if (currentGuess.some(l => l === '')) return
     setGuesses([...guesses, { word: [...currentGuess], colors: [...currentColors] }])
+    // Check for celebration (all green)
+    if (currentColors.every(c => c === 2)) {
+      setShowConfetti(true);
+      setTimeout(() => setShowConfetti(false), 2000);
+    }
     setCurrentGuess(['', '', '', '', ''])
     setCurrentColors([0, 0, 0, 0, 0])
     inputRefs[0].current?.focus()
@@ -146,6 +163,7 @@ function App() {
 
   return (
     <div className="container">
+      {showConfetti && <Confetti />}
       <h1>Wordle Helper</h1>
       <form onSubmit={handleSubmit} className="guess-form">
         <div className="tiles-row">

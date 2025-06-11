@@ -1,8 +1,22 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+body, #root {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(135deg, #232526 0%, #414345 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  /* Animated background */
+  background-size: 200% 200%;
+  animation: gradientMove 8s ease-in-out infinite;
+}
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .logo {
@@ -42,20 +56,23 @@
 }
 
 .container {
-  min-height: 100vh;
-  background: #222;
-  color: #fff;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding-top: 60px;
+  justify-content: center;
+  padding-top: 40px;
+  text-align: center;
+  width: 100%;
+  max-width: 480px;
 }
 
 h1 {
   margin-bottom: 2rem;
-  font-size: 2.5rem;
-  font-weight: bold;
+  font-size: 3rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-shadow: 0 4px 24px #000a, 0 1px 0 #333;
 }
 
 .guess-form {
@@ -68,53 +85,110 @@ h1 {
 .tiles-row {
   display: flex;
   flex-direction: row;
-  gap: 12px;
+  gap: 16px;
   justify-content: center;
   margin-bottom: 10px;
 }
 
 .tile, .tile-input {
-  width: 60px;
-  height: 60px;
-  border: 2px solid #444;
-  border-radius: 6px;
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: 2.2rem;
+  font-weight: 800;
   text-transform: uppercase;
-  background: gray;
-  color: white;
+  background: #333;
+  color: #fff;
+  box-shadow: 0 4px 16px #000a, 0 1.5px 0 #222;
   box-sizing: border-box;
-  transition: background 0.2s;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
 }
 
-.tile-input {
-  outline: none;
-  border: 2px solid #888;
-  background: gray;
-  color: white;
-  text-align: center;
-  caret-color: white;
+.tile-input:focus {
+  box-shadow: 0 0 0 3px #00e6ff99, 0 4px 16px #000a;
+  background: #444;
+}
+
+.tile[style*="limegreen"], .tile-input[style*="limegreen"] {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  color: #fff;
+  text-shadow: 0 1px 2px #000a;
+}
+.tile[style*="gold"], .tile-input[style*="gold"] {
+  background: linear-gradient(135deg, #fceabb 0%, #f8b500 100%);
+  color: #333;
+  text-shadow: 0 1px 2px #fff8;
+}
+.tile[style*="gray"], .tile-input[style*="gray"] {
+  background: linear-gradient(135deg, #434343 0%, #232526 100%);
+  color: #fff;
 }
 
 .submit-btn {
   margin-top: 18px;
-  padding: 10px 24px;
-  font-size: 1.1rem;
-  border-radius: 6px;
+  padding: 12px 36px;
+  font-size: 1.3rem;
+  border-radius: 8px;
   border: none;
-  background: #333;
-  color: #fff;
+  background: linear-gradient(90deg, #00e6ff 0%, #43e97b 100%);
+  color: #222;
   cursor: pointer;
-  font-weight: bold;
-  transition: background 0.2s;
+  font-weight: 900;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 12px #00e6ff44;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.1s;
+  animation: bounceIn 0.7s;
+}
+.submit-btn:hover:not(:disabled) {
+  background: linear-gradient(90deg, #43e97b 0%, #00e6ff 100%);
+  color: #111;
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 4px 24px #43e97b55;
+  animation: bounce 0.4s;
 }
 .submit-btn:disabled {
   background: #555;
   color: #aaa;
   cursor: not-allowed;
+  box-shadow: none;
+}
+
+.hint-section {
+  margin: 32px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hint-box {
+  margin-top: 8px;
+  padding: 18px 32px;
+  background: rgba(0,0,0,0.7);
+  border-radius: 16px;
+  box-shadow: 0 2px 16px #00e6ff88, 0 0 16px 2px #43e97b55;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #00e6ff;
+  min-width: 260px;
+  text-align: center;
+  letter-spacing: 1px;
+  border: 2px solid #00e6ff;
+  animation: hintGlow 2s infinite alternate;
+}
+
+h2 {
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 8px #000a;
 }
 
 .guesses-list {
@@ -127,4 +201,70 @@ h1 {
     height: 40px;
     font-size: 1.2rem;
   }
+  .hint-box {
+    min-width: 120px;
+    padding: 10px 8px;
+    font-size: 1rem;
+  }
+  h1 {
+    font-size: 2rem;
+  }
+  h2 {
+    font-size: 1.2rem;
+  }
+}
+
+.confetti {
+  pointer-events: none;
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 1000;
+}
+.confetti-piece {
+  position: absolute;
+  width: 12px;
+  height: 24px;
+  background: linear-gradient(135deg, #43e97b, #00e6ff, #f8b500, #fff, #ff4e50);
+  opacity: 0.8;
+  border-radius: 4px;
+  animation: confetti-fall 2s linear forwards;
+  left: calc(100vw * var(--rand-x));
+  top: -40px;
+  transform: rotate(var(--rand-rot));
+  animation-delay: var(--rand-delay);
+}
+.confetti-piece:nth-child(n) {
+  --rand-x: calc((random() * 0.95));
+  --rand-rot: calc((random() * 360deg));
+  --rand-delay: calc((random() * 0.5s));
+}
+@keyframes confetti-fall {
+  to {
+    top: 100vh;
+    transform: rotate(360deg);
+    opacity: 0.2;
+  }
+}
+
+.tile:active, .tile-input:active {
+  transform: scale(1.08);
+  box-shadow: 0 6px 24px #00e6ff55;
+}
+
+@keyframes hintGlow {
+  from { box-shadow: 0 2px 16px #00e6ff88, 0 0 16px 2px #43e97b55; }
+  to { box-shadow: 0 2px 32px #43e97bcc, 0 0 32px 4px #00e6ff99; }
+}
+
+@keyframes bounce {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.08); }
+  50% { transform: scale(0.96); }
+  70% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+@keyframes bounceIn {
+  0% { transform: scale(0.7); opacity: 0; }
+  80% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); }
 }
